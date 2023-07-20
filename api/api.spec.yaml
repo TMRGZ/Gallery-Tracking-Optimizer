@@ -8,6 +8,7 @@ info:
 paths:
   /images/{imageId}/events:
     post:
+      operationId: post-image-events
       summary: |
         This endpoint is called every time an image receives some event on it (view, or click). These events will be the ones used to optimize the gallery grid later.
       parameters:
@@ -54,6 +55,7 @@ paths:
 
   /images:
     get:
+      operationId: get-image-list
       summary: |
         This endpoint will return all the images related to the gallery to be displayed on the gallery.
         
