@@ -46,8 +46,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test:3.5.6'
 	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+	testImplementation 'org.signal:embedded-redis:0.8.3'
 	// DB
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+	// Cache
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
 }
 
 sourceSets {
