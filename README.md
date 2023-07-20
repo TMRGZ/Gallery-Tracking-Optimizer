@@ -17,7 +17,7 @@ us every time a user `view` or `click` over any of the images showed on the gall
 Those events will help our *super-fancy algorithm* to create an amazing order where the most interacted images will be
 at the top of the gallery, and the least, at the bottom. 
 
-You could find the whole description of the API in the [OpenAPI description file](/api.spec.yaml)
+You could find the whole description of the API in the [OpenAPI description file](/api/api.spec.yaml)
 
 ### Order algorithm 
 
