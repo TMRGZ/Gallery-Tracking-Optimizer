@@ -1,13 +1,20 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
 plugins {
-	id 'org.springframework.boot' version '2.7.0'
+	id 'org.springframework.boot' version '3.1.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'groovy'
 	id 'jacoco'
+	id "org.openapi.generator" version "6.6.0"
 }
 
 group = 'com.rviewer.skeletons'
 version = '1.0.0'
-sourceCompatibility = '17'
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+}
 
 configurations {
 	compileOnly {
@@ -21,15 +28,54 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	compileOnly 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux:3.1.1'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	testImplementation 'com.h2database:h2:2.1.212'
-	runtimeOnly 'org.postgresql:postgresql'
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	// Swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.1.0'
+	// Map Struct
+	implementation 'org.mapstruct:mapstruct:1.4.0.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.0.Final'
+	// API First
+	implementation 'org.openapitools:jackson-databind-nullable:0.2.4'
+	// Testing
+	testImplementation 'org.spockframework:spock-spring:2.4-M1-groovy-4.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test:3.5.6'
+	testImplementation 'com.h2database:h2:2.1.212'
+
+	runtimeOnly 'org.postgresql:postgresql'
 }
+
+sourceSets {
+	main {
+		java {
+			srcDir "${buildDir}/generated/sources/src/main/java"
+		}
+	}
+}
+
+tasks.register('buildServer', GenerateTask) {
+	generatorName = "spring"
+	inputSpec = "$rootDir/api/api.spec.yaml"
+	apiPackage = "com.rviewer.skeletons.infrastructure.controller"
+	modelPackage = "com.rviewer.skeletons.application.model"
+	outputDir = "$buildDir/generated/sources".toString()
+	modelNameSuffix = "Dto"
+	configOptions = [
+			interfaceOnly                 : "true",
+			skipDefaultInterface          : "true",
+			performBeanValidation         : "true",
+			useSpringBoot3                : "true",
+			reactive                      : "true",
+			additionalModelTypeAnnotations: "@lombok.Generated"
+	]
+}
+
+tasks.compileJava.dependsOn(buildServer)
 
 tasks.named('test') {
 	useJUnitPlatform()
