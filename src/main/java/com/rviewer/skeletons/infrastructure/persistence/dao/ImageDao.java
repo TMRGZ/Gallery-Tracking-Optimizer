@@ -18,6 +18,6 @@ public class ImageDao {
 
     private String url;
 
-    private OffsetDateTime creationDate;
+    private OffsetDateTime createdAt;
 
 }
