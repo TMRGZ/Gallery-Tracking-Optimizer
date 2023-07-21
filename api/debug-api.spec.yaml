@@ -1,0 +1,21 @@
+openapi: 3.0.0
+info:
+  title: Debug Gallery Optimizer API
+  version: 1.0.
+
+paths:
+  /debug/images:
+    post:
+      operationId: import-data
+      responses:
+        '201':
+          description: Data has been imported
+        '404':
+          description: No data to import
+        '409':
+          description: Data has already been imported
+    delete:
+      operationId: delete-data
+      responses:
+        '204':
+          description: Data has been deleted

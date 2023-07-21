@@ -1,0 +1,43 @@
+openapi: 3.0.3
+
+info:
+  version: 1.0.0
+  title: Challenges Dataset API
+servers:
+  - url: 'https://static.rviewer.io/'
+paths:
+  /challenges/datasets/gallery-tracking-optimizer/data.json:
+    get:
+      operationId: get-data
+      summary: Get dataset data
+      tags:
+        - Dataset Controller
+      responses:
+        200:
+          description: Data received
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Image'
+
+components:
+  schemas:
+    Image:
+      description: 'Image'
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: 'Blue sofa'
+        url:
+          type: string
+          format: url
+          example: 'https://fff'
+        created_at:
+          type: string
+          format: date-time
