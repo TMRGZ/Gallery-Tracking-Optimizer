@@ -15,4 +15,9 @@ public class ImageServiceImpl implements ImageService {
     public Flux<Image> getImages() {
         return imageRepository.findAll();
     }
+
+    @Override
+    public Flux<Image> saveImages(Flux<Image> imageFlux) {
+        return imageRepository.saveAll(imageFlux);
+    }
 }

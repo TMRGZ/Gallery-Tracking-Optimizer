@@ -7,4 +7,6 @@ public interface ImageService {
 
     Flux<Image> getImages();
 
+    Flux<Image> saveImages(Flux<Image> imageFlux);
+
 }
