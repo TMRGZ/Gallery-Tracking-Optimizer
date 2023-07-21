@@ -4,12 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Getter
 @Setter
-@Document
+@Document("image")
 public class ImageDao {
 
     private UUID id;
@@ -18,6 +18,6 @@ public class ImageDao {
 
     private String url;
 
-    private OffsetDateTime createdAt;
+    private Instant createdAt;
 
 }
