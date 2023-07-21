@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: Gallery Optimizer API
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: rv_user
+      password: rv_password
+      database: mongo_rv_database
