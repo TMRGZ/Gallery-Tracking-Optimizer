@@ -1,7 +1,10 @@
 package com.rviewer.skeletons.infrastructure.config;
 
+import com.rviewer.skeletons.domain.repository.EventRepository;
 import com.rviewer.skeletons.domain.repository.ImageRepository;
 import com.rviewer.skeletons.domain.service.debug.DebugService;
+import com.rviewer.skeletons.domain.service.event.EventService;
+import com.rviewer.skeletons.domain.service.event.impl.EventServiceImpl;
 import com.rviewer.skeletons.domain.service.image.ImageService;
 import com.rviewer.skeletons.domain.service.debug.impl.DebugServiceImpl;
 import com.rviewer.skeletons.domain.service.image.impl.ImageServiceImpl;
@@ -16,6 +19,11 @@ public class BeanConfig {
     @Bean
     public ImageService imageService(ImageRepository imageRepository, SorterFactory sorterFactory) {
         return new ImageServiceImpl(imageRepository, sorterFactory);
+    }
+
+    @Bean
+    public EventService eventService(EventRepository eventRepository) {
+        return new EventServiceImpl(eventRepository);
     }
 
     @Bean
