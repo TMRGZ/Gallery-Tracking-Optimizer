@@ -6,6 +6,7 @@ import com.rviewer.skeletons.domain.service.ImageService;
 import com.rviewer.skeletons.domain.sorter.factory.SorterFactory;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
@@ -23,5 +24,10 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Flux<Image> saveImages(Flux<Image> imageFlux) {
         return imageRepository.saveAll(imageFlux);
+    }
+
+    @Override
+    public Mono<Void> deleteAllImages() {
+        return imageRepository.deleteAll();
     }
 }
