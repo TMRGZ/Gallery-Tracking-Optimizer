@@ -1,10 +1,9 @@
-package com.rviewer.skeletons.domain.service.impl;
+package com.rviewer.skeletons.domain.service.debug.impl;
 
 import com.rviewer.skeletons.domain.model.Image;
-import com.rviewer.skeletons.domain.repository.ImageRepository;
-import com.rviewer.skeletons.domain.service.ImageService;
+import com.rviewer.skeletons.domain.service.image.ImageService;
 import com.rviewer.skeletons.infrastructure.service.DatasetService;
-import com.rviewer.skeletons.domain.service.DebugService;
+import com.rviewer.skeletons.domain.service.debug.DebugService;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

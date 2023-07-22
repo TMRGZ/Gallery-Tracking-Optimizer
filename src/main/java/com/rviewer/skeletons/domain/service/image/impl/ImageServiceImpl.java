@@ -1,8 +1,8 @@
-package com.rviewer.skeletons.domain.service.impl;
+package com.rviewer.skeletons.domain.service.image.impl;
 
 import com.rviewer.skeletons.domain.model.Image;
 import com.rviewer.skeletons.domain.repository.ImageRepository;
-import com.rviewer.skeletons.domain.service.ImageService;
+import com.rviewer.skeletons.domain.service.image.ImageService;
 import com.rviewer.skeletons.domain.sorter.factory.SorterFactory;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;

@@ -4,7 +4,7 @@ import com.rviewer.skeletons.application.mapper.ImageDtoMapper;
 import com.rviewer.skeletons.application.model.ImageInfoDto;
 import com.rviewer.skeletons.application.model.TrackEventBodyDto;
 import com.rviewer.skeletons.application.service.ImageApplicationService;
-import com.rviewer.skeletons.domain.service.ImageService;
+import com.rviewer.skeletons.domain.service.image.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
