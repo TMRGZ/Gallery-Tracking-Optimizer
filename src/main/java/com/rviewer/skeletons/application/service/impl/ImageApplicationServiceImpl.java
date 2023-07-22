@@ -1,15 +1,19 @@
 package com.rviewer.skeletons.application.service.impl;
 
+import com.rviewer.skeletons.application.mapper.EventDtoMapper;
 import com.rviewer.skeletons.application.mapper.ImageDtoMapper;
 import com.rviewer.skeletons.application.model.ImageInfoDto;
 import com.rviewer.skeletons.application.model.TrackEventBodyDto;
 import com.rviewer.skeletons.application.service.ImageApplicationService;
+import com.rviewer.skeletons.domain.service.event.EventService;
 import com.rviewer.skeletons.domain.service.image.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @Service
 public class ImageApplicationServiceImpl implements ImageApplicationService {
@@ -20,6 +24,12 @@ public class ImageApplicationServiceImpl implements ImageApplicationService {
     @Autowired
     private ImageDtoMapper imageDtoMapper;
 
+    @Autowired
+    private EventService eventService;
+
+    @Autowired
+    private EventDtoMapper eventDtoMapper;
+
     @Override
     public Mono<ResponseEntity<Flux<ImageInfoDto>>> getImageList() {
         Flux<ImageInfoDto> imageInfoDtoFlux = imageService.getImages().map(imageDtoMapper::map);
@@ -28,6 +38,9 @@ public class ImageApplicationServiceImpl implements ImageApplicationService {
 
     @Override
     public Mono<ResponseEntity<Void>> postImageEvents(String imageId, Mono<TrackEventBodyDto> trackEventBodyDto) {
-        return null;
+        return trackEventBodyDto.map(eventDtoMapper::map)
+                .map(event -> event.toBuilder().imageId(UUID.fromString(imageId)).build())
+                .flatMap(eventService::save)
+                .then(Mono.just(ResponseEntity.noContent().build()));
     }
 }
