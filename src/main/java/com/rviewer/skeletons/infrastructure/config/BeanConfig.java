@@ -5,6 +5,7 @@ import com.rviewer.skeletons.domain.service.DebugService;
 import com.rviewer.skeletons.domain.service.ImageService;
 import com.rviewer.skeletons.domain.service.impl.DebugServiceImpl;
 import com.rviewer.skeletons.domain.service.impl.ImageServiceImpl;
+import com.rviewer.skeletons.domain.sorter.factory.SorterFactory;
 import com.rviewer.skeletons.infrastructure.service.DatasetService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfig {
 
     @Bean
-    public ImageService imageService(ImageRepository imageRepository) {
-        return new ImageServiceImpl(imageRepository);
+    public ImageService imageService(ImageRepository imageRepository, SorterFactory sorterFactory) {
+        return new ImageServiceImpl(imageRepository, sorterFactory);
     }
 
     @Bean
