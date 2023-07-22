@@ -19,7 +19,7 @@ public class BeanConfig {
     }
 
     @Bean
-    public DebugService debugService(ImageRepository imageRepository, DatasetService datasetService) {
-        return new DebugServiceImpl(imageRepository, datasetService);
+    public DebugService debugService(ImageService imageService, DatasetService datasetService) {
+        return new DebugServiceImpl(imageService, datasetService);
     }
 }
