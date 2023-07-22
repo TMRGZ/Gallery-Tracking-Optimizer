@@ -8,3 +8,16 @@ spring:
       username: rv_user
       password: rv_password
       database: mongo_rv_database
+
+sorter:
+  event-sorter:
+    name: "EventSorter"
+    criteria:
+      direction: desc
+      view: 0.3
+      click: 0.7
+  default-sorter:
+    name: "DefaultSorter"
+    criteria:
+      direction: desc
+      field: createdAt
