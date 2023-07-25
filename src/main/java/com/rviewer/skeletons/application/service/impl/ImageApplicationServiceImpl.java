@@ -32,7 +32,7 @@ public class ImageApplicationServiceImpl implements ImageApplicationService {
 
     @Override
     public Mono<ResponseEntity<Flux<ImageInfoDto>>> getImageList() {
-        Flux<ImageInfoDto> imageInfoDtoFlux = imageService.getImages().map(imageDtoMapper::map);
+        Flux<ImageInfoDto> imageInfoDtoFlux = imageService.getImages("").map(imageDtoMapper::map);
         return Mono.just(ResponseEntity.ok(imageInfoDtoFlux));
     }
 

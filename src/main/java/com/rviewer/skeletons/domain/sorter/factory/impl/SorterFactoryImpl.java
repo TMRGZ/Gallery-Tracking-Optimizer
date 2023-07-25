@@ -11,17 +11,13 @@ public class SorterFactoryImpl implements SorterFactory {
 
     private final List<GenericImageSorterAlgorithm> imageSorterList;
 
-    private final GenericImageSorterAlgorithm defaultSorter;
-
-    @Override
-    public GenericImageSorterAlgorithm getSorter() {
-        return defaultSorter;
-    }
+    private final String defaultSorter;
 
     @Override
     public GenericImageSorterAlgorithm getSorter(String name) {
         return imageSorterList.stream()
                 .filter(imageSorter -> imageSorter.getImageSorterName().equalsIgnoreCase(name))
-                .findAny().orElseThrow();
+                .findAny()
+                .orElseGet(() -> getSorter(defaultSorter));
     }
 }

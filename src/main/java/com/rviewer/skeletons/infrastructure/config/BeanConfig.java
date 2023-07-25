@@ -11,18 +11,21 @@ import com.rviewer.skeletons.domain.service.image.impl.ImageServiceImpl;
 import com.rviewer.skeletons.domain.sorter.algorithm.GenericImageSorterAlgorithm;
 import com.rviewer.skeletons.domain.sorter.factory.SorterFactory;
 import com.rviewer.skeletons.domain.sorter.factory.impl.SorterFactoryImpl;
+import com.rviewer.skeletons.infrastructure.config.sorter.SorterConfig;
 import com.rviewer.skeletons.infrastructure.service.DatasetService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
 @Configuration
+@Import(SorterConfig.class)
 public class BeanConfig {
 
     @Bean
-    public SorterFactory sorterFactory(List<GenericImageSorterAlgorithm> imageSorterList, GenericImageSorterAlgorithm defaultSorter) {
-        return new SorterFactoryImpl(imageSorterList, defaultSorter);
+    public SorterFactory sorterFactory(List<GenericImageSorterAlgorithm> imageSorterList, SorterConfig sorterConfig) {
+        return new SorterFactoryImpl(imageSorterList, sorterConfig.getDefaultAlgorithm());
     }
 
     @Bean

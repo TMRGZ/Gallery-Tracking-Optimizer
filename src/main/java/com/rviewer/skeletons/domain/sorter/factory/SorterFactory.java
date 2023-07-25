@@ -4,7 +4,5 @@ import com.rviewer.skeletons.domain.sorter.algorithm.GenericImageSorterAlgorithm
 
 public interface SorterFactory {
 
-    GenericImageSorterAlgorithm getSorter();
-
     GenericImageSorterAlgorithm getSorter(String name);
 }

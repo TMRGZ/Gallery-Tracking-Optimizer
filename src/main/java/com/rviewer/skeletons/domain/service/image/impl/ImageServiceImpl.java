@@ -20,9 +20,9 @@ public class ImageServiceImpl implements ImageService {
     private final SorterFactory sorterFactory;
 
     @Override
-    public Flux<Image> getImages() {
+    public Flux<Image> getImages(String algorithm) {
         return imageRepository.findAll()
-                .sort(sorterFactory.getSorter())
+                .sort(sorterFactory.getSorter(algorithm))
                 .index().map(this::getIndexedImage);
     }
 
