@@ -6,7 +6,6 @@ import com.rviewer.skeletons.infrastructure.mapper.EventDaoMapper;
 import com.rviewer.skeletons.infrastructure.persistence.repository.mongo.EventMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -22,13 +21,28 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Override
     public Mono<Event> save(Event event) {
-        return eventMongoRepository.save(eventDaoMapper.map(event))
+        return eventMongoRepository.save(eventDaoMapper.map(generateId(event)))
+                .map(eventDaoMapper::map);
+    }
+
+    private Event generateId(Event event) {
+        UUID id = event.getId();
+
+        if (id == null) {
+            event.setId(UUID.randomUUID());
+        }
+
+        return event;
+    }
+
+    @Override
+    public Mono<Event> findByImageId(UUID imageId) {
+        return eventMongoRepository.findByImageId(imageId)
                 .map(eventDaoMapper::map);
     }
 
     @Override
-    public Flux<Event> findByImageId(UUID imageId) {
-        return eventMongoRepository.findByImageId(imageId)
-                .map(eventDaoMapper::map);
+    public Mono<Long> countByImageIdAndEventType(UUID imageId, String eventType) {
+        return eventMongoRepository.countByImageIdAndEventType(imageId, eventType);
     }
 }

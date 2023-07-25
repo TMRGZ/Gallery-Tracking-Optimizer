@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Component
 public class ImageRepositoryImpl implements ImageRepository {
 
@@ -32,5 +34,14 @@ public class ImageRepositoryImpl implements ImageRepository {
     @Override
     public Mono<Void> deleteAll() {
         return imageMongoRepository.deleteAll();
+    }
+
+    @Override
+    public Mono<Image> findById(UUID id) {
+        return imageMongoRepository.findById(id).map(imageDaoMapper::map);
+    }
+    @Override
+    public Mono<Image> save(Image image) {
+        return imageMongoRepository.save(imageDaoMapper.map(image)).map(imageDaoMapper::map);
     }
 }
