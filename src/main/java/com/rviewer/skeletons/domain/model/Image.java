@@ -1,5 +1,6 @@
 package com.rviewer.skeletons.domain.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Builder(toBuilder = true)
 public class Image {
 
     private UUID id;
@@ -23,5 +25,6 @@ public class Image {
 
     private BigDecimal gridPosition;
 
+    private ImageInfoEvents events;
 
 }

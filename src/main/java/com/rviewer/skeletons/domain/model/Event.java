@@ -12,6 +12,8 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 public class Event {
 
+    private UUID id;
+
     private UUID imageId;
 
     private String eventType;
