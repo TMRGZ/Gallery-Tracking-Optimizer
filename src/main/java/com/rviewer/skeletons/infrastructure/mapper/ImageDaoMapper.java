@@ -2,7 +2,6 @@ package com.rviewer.skeletons.infrastructure.mapper;
 
 import com.rviewer.skeletons.domain.model.Image;
 import com.rviewer.skeletons.infrastructure.persistence.dao.ImageDao;
-import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 
 import java.time.Instant;
@@ -10,7 +9,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = ImageInfoEventsDaoMapper.class)
 public interface ImageDaoMapper {
 
     ImageDao map(Image image);
