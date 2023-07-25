@@ -9,9 +9,9 @@ import lombok.Setter;
 public class EventSorterCriteria extends AbstractSorterCriteria {
 
     @NotNull
-    private Long view;
+    private Double view;
 
     @NotNull
-    private Long click;
+    private Double click;
 
 }

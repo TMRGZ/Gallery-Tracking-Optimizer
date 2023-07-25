@@ -1,9 +1,7 @@
 package com.rviewer.skeletons.infrastructure.config.sorter;
 
-import com.rviewer.skeletons.domain.sorter.impl.DefaultImageSorter;
-import com.rviewer.skeletons.domain.sorter.impl.EventImageSorter;
-import com.rviewer.skeletons.infrastructure.config.sorter.algorithm.DefaultSorterConfig;
-import com.rviewer.skeletons.infrastructure.config.sorter.algorithm.EventSorterConfig;
+import com.rviewer.skeletons.domain.sorter.algorithm.GenericImageSorterAlgorithm;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,28 +9,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Validated
 @Configuration
-@ConfigurationProperties(prefix = "sorter")
+@ConfigurationProperties(prefix = "sorter.config")
 public class SorterConfig {
 
-    private EventSorterConfig eventSorter;
-
-    private DefaultSorterConfig defaultSorter;
+    @NotBlank
+    private String defaultAlgorithm;
 
     @Bean
-    public EventImageSorter eventImageSorter() {
-        return new EventImageSorter(eventSorter.getName());
+    public GenericImageSorterAlgorithm defaultSorter(List<GenericImageSorterAlgorithm> imageSorterList) {
+        return getSorter(imageSorterList, defaultAlgorithm);
     }
 
-    @Bean
-    public DefaultImageSorter defaultImageSorter() {
-        return new DefaultImageSorter(
-                defaultSorter.getName(),
-                defaultSorter.getCriteria().getDirection(),
-                defaultSorter.getCriteria().getField()
-        );
+    private GenericImageSorterAlgorithm getSorter(List<GenericImageSorterAlgorithm> sorterList, String algorithm) {
+        return sorterList.stream()
+                .filter(genericImageSorter -> genericImageSorter.getImageSorterName().equalsIgnoreCase(algorithm))
+                .findAny().orElseThrow();
     }
 }
