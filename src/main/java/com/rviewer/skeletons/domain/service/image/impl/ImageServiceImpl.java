@@ -3,7 +3,7 @@ package com.rviewer.skeletons.domain.service.image.impl;
 import com.rviewer.skeletons.domain.model.Image;
 import com.rviewer.skeletons.domain.repository.ImageRepository;
 import com.rviewer.skeletons.domain.service.image.ImageService;
-import com.rviewer.skeletons.domain.sorter.factory.SorterFactory;
+import com.rviewer.skeletons.domain.factory.SorterFactory;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -21,15 +21,8 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Flux<Image> getImages(String algorithm) {
-        return imageRepository.findAll()
-                .sort(sorterFactory.getSorter(algorithm))
-                .index().map(this::getIndexedImage);
-    }
-
-    private Image getIndexedImage(Tuple2<Long, Image> indexedImage) {
-        return indexedImage.getT2().toBuilder()
-                .gridPosition(BigDecimal.valueOf(indexedImage.getT1()))
-                .build();
+        return sorterFactory.getSorter(algorithm)
+                .getSortedImages();
     }
 
     @Override
