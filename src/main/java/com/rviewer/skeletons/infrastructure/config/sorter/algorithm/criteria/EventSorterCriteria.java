@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EventSorterCriteria extends AbstractSorterCriteria {
+public class EventSorterCriteria {
 
     @NotNull
     private Double view;

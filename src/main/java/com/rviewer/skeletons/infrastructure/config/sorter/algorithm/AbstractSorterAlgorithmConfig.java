@@ -11,4 +11,7 @@ public class AbstractSorterAlgorithmConfig {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private String direction;
+
 }

@@ -1,6 +1,6 @@
 package com.rviewer.skeletons.infrastructure.config.sorter;
 
-import com.rviewer.skeletons.domain.sorter.algorithm.GenericImageSorterAlgorithm;
+import com.rviewer.skeletons.domain.service.sorter.common.AbstractSorterService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,13 +22,13 @@ public class SorterConfig {
     private String defaultAlgorithm;
 
     @Bean
-    public GenericImageSorterAlgorithm defaultSorter(List<GenericImageSorterAlgorithm> imageSorterList) {
+    public AbstractSorterService defaultSorter(List<AbstractSorterService> imageSorterList) {
         return getSorter(imageSorterList, defaultAlgorithm);
     }
 
-    private GenericImageSorterAlgorithm getSorter(List<GenericImageSorterAlgorithm> sorterList, String algorithm) {
+    private AbstractSorterService getSorter(List<AbstractSorterService> sorterList, String algorithm) {
         return sorterList.stream()
-                .filter(genericImageSorter -> genericImageSorter.getImageSorterName().equalsIgnoreCase(algorithm))
+                .filter(genericImageSorter -> genericImageSorter.getAlgorithmName().equalsIgnoreCase(algorithm))
                 .findAny().orElseThrow();
     }
 }

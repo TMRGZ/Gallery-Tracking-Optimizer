@@ -15,7 +15,7 @@ sorter:
   sorter-list:
     event-sorter:
       name: "EventSorter"
+      direction: desc
       criteria:
-        direction: desc
         view: 0.3
         click: 0.7
