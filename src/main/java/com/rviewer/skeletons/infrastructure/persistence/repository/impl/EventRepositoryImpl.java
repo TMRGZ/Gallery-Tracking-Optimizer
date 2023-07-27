@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -26,9 +27,9 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     private Event generateId(Event event) {
-        UUID id = event.getId();
+        Optional<UUID> id = Optional.ofNullable(event.getId());
 
-        if (id == null) {
+        if (id.isEmpty()) {
             event.setId(UUID.randomUUID());
         }
 
