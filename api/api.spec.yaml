@@ -85,7 +85,7 @@ components:
       properties:
         eventType:
           type: string
-          enum: ['view', 'click']
+          enum: [ 'view', 'click' ]
         timestamp:
           type: string
           format: date-time

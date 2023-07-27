@@ -1,8 +1,8 @@
 package com.rviewer.skeletons.domain.service.sorter.common;
 
+import com.rviewer.skeletons.domain.algorithm.ImageSorterAlgorithm;
 import com.rviewer.skeletons.domain.model.Image;
 import com.rviewer.skeletons.domain.repository.ImageRepository;
-import com.rviewer.skeletons.domain.algorithm.ImageSorterAlgorithm;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.util.function.Tuple2;

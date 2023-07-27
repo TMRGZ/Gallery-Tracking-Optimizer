@@ -40,6 +40,7 @@ public class ImageRepositoryImpl implements ImageRepository {
     public Mono<Image> findById(UUID id) {
         return imageMongoRepository.findById(id).map(imageDaoMapper::map);
     }
+
     @Override
     public Mono<Image> save(Image image) {
         return imageMongoRepository.save(imageDaoMapper.map(image)).map(imageDaoMapper::map);

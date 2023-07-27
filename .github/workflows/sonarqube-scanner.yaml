@@ -25,11 +25,11 @@ jobs:
           if [ ! -z "${{ secrets.SONAR_TOKEN }}" ] && [ ! -z "${{ secrets.SONAR_HOST_URL }}" ]; then
             echo "::set-output name=ok::true"
           fi
-          
+
   sonarqube:
     runs-on: self-hosted
     needs:
-        - secrets-gate
+      - secrets-gate
     if: ${{ needs.secrets-gate.outputs.ok == 'true' }}
     steps:
       - uses: actions/checkout@v3
