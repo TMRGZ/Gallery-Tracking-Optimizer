@@ -1,5 +1,6 @@
 package com.rviewer.skeletons.infrastructure.persistence.repository.mongo;
 
+import com.rviewer.skeletons.domain.model.enums.EventTypeEnum;
 import com.rviewer.skeletons.infrastructure.persistence.dao.EventDao;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
@@ -12,5 +13,5 @@ public interface EventMongoRepository extends ReactiveMongoRepository<EventDao, 
 
     Mono<EventDao> findByImageId(UUID imageId);
 
-    Mono<Long> countByImageIdAndEventType(UUID imageId, String eventType);
+    Mono<Long> countByImageIdAndEventType(UUID imageId, EventTypeEnum eventType);
 }

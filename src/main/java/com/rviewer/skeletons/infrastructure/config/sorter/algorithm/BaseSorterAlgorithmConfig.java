@@ -1,6 +1,9 @@
 package com.rviewer.skeletons.infrastructure.config.sorter.algorithm;
 
+import com.rviewer.skeletons.domain.model.enums.SortDirectionEnum;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +14,7 @@ public class BaseSorterAlgorithmConfig {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String direction;
+    @NotNull
+    private SortDirectionEnum direction;
 
 }

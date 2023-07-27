@@ -1,6 +1,7 @@
 package com.rviewer.skeletons.infrastructure.persistence.repository.impl;
 
 import com.rviewer.skeletons.domain.model.Event;
+import com.rviewer.skeletons.domain.model.enums.EventTypeEnum;
 import com.rviewer.skeletons.domain.repository.EventRepository;
 import com.rviewer.skeletons.infrastructure.mapper.EventDaoMapper;
 import com.rviewer.skeletons.infrastructure.persistence.repository.mongo.EventMongoRepository;
@@ -43,7 +44,7 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public Mono<Long> countByImageIdAndEventType(UUID imageId, String eventType) {
+    public Mono<Long> countByImageIdAndEventType(UUID imageId, EventTypeEnum eventType) {
         return eventMongoRepository.countByImageIdAndEventType(imageId, eventType);
     }
 }

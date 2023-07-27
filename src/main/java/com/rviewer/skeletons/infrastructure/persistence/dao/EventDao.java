@@ -1,5 +1,6 @@
 package com.rviewer.skeletons.infrastructure.persistence.dao;
 
+import com.rviewer.skeletons.domain.model.enums.EventTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,7 +17,7 @@ public class EventDao {
 
     private UUID imageId;
 
-    private String eventType;
+    private EventTypeEnum eventType;
 
     private Instant timestamp;
 

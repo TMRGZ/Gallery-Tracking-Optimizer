@@ -1,5 +1,6 @@
 package com.rviewer.skeletons.domain.model;
 
+import com.rviewer.skeletons.domain.model.enums.EventTypeEnum;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ public class Event {
 
     private UUID imageId;
 
-    private String eventType;
+    private EventTypeEnum eventType;
 
     private OffsetDateTime timestamp;
 

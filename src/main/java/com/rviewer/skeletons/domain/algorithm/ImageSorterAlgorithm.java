@@ -1,6 +1,7 @@
 package com.rviewer.skeletons.domain.algorithm;
 
 import com.rviewer.skeletons.domain.model.Image;
+import com.rviewer.skeletons.domain.model.enums.SortDirectionEnum;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +13,7 @@ public abstract class ImageSorterAlgorithm implements Comparator<Image> {
 
     private final String algorithmName;
 
-    private final String direction;
+    private final SortDirectionEnum direction;
 
     @Override
     public int compare(Image o1, Image o2) {

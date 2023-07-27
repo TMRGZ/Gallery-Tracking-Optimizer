@@ -1,6 +1,7 @@
 package com.rviewer.skeletons.domain.repository;
 
 import com.rviewer.skeletons.domain.model.Event;
+import com.rviewer.skeletons.domain.model.enums.EventTypeEnum;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -11,6 +12,6 @@ public interface EventRepository {
 
     Mono<Event> findByImageId(UUID imageId);
 
-    Mono<Long> countByImageIdAndEventType(UUID imageId, String eventType);
+    Mono<Long> countByImageIdAndEventType(UUID imageId, EventTypeEnum eventType);
 
 }

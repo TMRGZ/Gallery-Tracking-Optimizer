@@ -33,9 +33,9 @@ public class EventServiceImpl implements EventService {
 
                     ImageInfoEvents.ImageInfoEventsBuilder eventsBuilder = tupleImage.getEvents().toBuilder();
 
-                    switch (tupleEvent.getEventType().toLowerCase()) {
-                        case "view" -> eventsBuilder.views(BigDecimal.valueOf(tupleCount));
-                        case "click" -> eventsBuilder.clicks(BigDecimal.valueOf(tupleCount));
+                    switch (tupleEvent.getEventType()) {
+                        case VIEW -> eventsBuilder.views(BigDecimal.valueOf(tupleCount));
+                        case CLICK -> eventsBuilder.clicks(BigDecimal.valueOf(tupleCount));
                     }
 
                     ImageInfoEvents updatedEvents = eventsBuilder.build();
