@@ -1,6 +1,7 @@
 package com.rviewer.skeletons.infrastructure.config.sorter;
 
 import com.rviewer.skeletons.domain.service.sorter.common.AbstractSorterService;
+import com.rviewer.skeletons.infrastructure.exception.InvalidConfigurationException;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class SorterConfig {
     private AbstractSorterService getSorter(List<AbstractSorterService> sorterList, String algorithm) {
         return sorterList.stream()
                 .filter(genericImageSorter -> genericImageSorter.getAlgorithmName().equalsIgnoreCase(algorithm))
-                .findAny().orElseThrow();
+                .findAny()
+                .orElseThrow(() -> new InvalidConfigurationException("Sorter with %s algorithm not found".formatted(algorithm)));
     }
 }

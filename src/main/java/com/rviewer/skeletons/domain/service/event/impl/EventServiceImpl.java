@@ -1,5 +1,6 @@
 package com.rviewer.skeletons.domain.service.event.impl;
 
+import com.rviewer.skeletons.domain.exception.ImageNotFoundException;
 import com.rviewer.skeletons.domain.model.Event;
 import com.rviewer.skeletons.domain.model.Image;
 import com.rviewer.skeletons.domain.model.ImageInfoEvents;
@@ -21,14 +22,16 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Mono<Event> save(Event event) {
-        Mono<Event> savedMono = eventRepository.save(event);
+        UUID imageId = event.getImageId();
 
-        return savedMono
-                .zipWith(imageService.getImage(event.getImageId()))
-                .zipWith(eventRepository.countByImageIdAndEventType(event.getImageId(), event.getEventType()))
+        Mono<Event> savedMono = eventRepository.save(event);
+        return imageService.getImage(imageId).switchIfEmpty(
+                        Mono.error(new ImageNotFoundException("Image with id = %s not found".formatted(imageId))))
+                .zipWith(savedMono)
+                .zipWith(eventRepository.countByImageIdAndEventType(imageId, event.getEventType()))
                 .flatMap(tuple -> {
-                    Event tupleEvent = tuple.getT1().getT1();
-                    Image tupleImage = tuple.getT1().getT2();
+                    Event tupleEvent = tuple.getT1().getT2();
+                    Image tupleImage = tuple.getT1().getT1();
                     long tupleCount = tuple.getT2();
 
                     ImageInfoEvents.ImageInfoEventsBuilder eventsBuilder = tupleImage.getEvents().toBuilder();
