@@ -34,19 +34,23 @@ public class EventServiceImpl implements EventService {
                     Image tupleImage = tuple.getT1().getT1();
                     long tupleCount = tuple.getT2();
 
-                    ImageInfoEvents.ImageInfoEventsBuilder eventsBuilder = tupleImage.getEvents().toBuilder();
-
-                    switch (tupleEvent.getEventType()) {
-                        case VIEW -> eventsBuilder.views(BigDecimal.valueOf(tupleCount));
-                        case CLICK -> eventsBuilder.clicks(BigDecimal.valueOf(tupleCount));
-                    }
-
-                    ImageInfoEvents updatedEvents = eventsBuilder.build();
-
-                    return Mono.just(tupleImage.toBuilder().events(updatedEvents).build());
+                    return persistImageEvents(tupleImage, tupleEvent, tupleCount);
                 })
                 .flatMap(imageService::save)
                 .then(savedMono);
+    }
+
+    private Mono<Image> persistImageEvents(Image image, Event event, long count) {
+        ImageInfoEvents.ImageInfoEventsBuilder eventsBuilder = image.getEvents().toBuilder();
+
+        switch (event.getEventType()) {
+            case VIEW -> eventsBuilder.views(BigDecimal.valueOf(count));
+            case CLICK -> eventsBuilder.clicks(BigDecimal.valueOf(count));
+        }
+
+        ImageInfoEvents updatedEvents = eventsBuilder.build();
+
+        return Mono.just(image.toBuilder().events(updatedEvents).build());
     }
 
     @Override
