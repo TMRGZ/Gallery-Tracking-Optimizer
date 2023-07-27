@@ -20,7 +20,7 @@ public class ImageServiceImpl implements ImageService {
     private final SorterFactory sorterFactory;
 
     @Override
-    public Flux<Image> getImages(String algorithm) {
+    public Flux<Image> getSortedImages(String algorithm) {
         return sorterFactory.getSorter(algorithm)
                 .getSortedImages();
     }

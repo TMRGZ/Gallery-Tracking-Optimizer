@@ -2,7 +2,7 @@ package com.rviewer.skeletons.infrastructure.service.impl;
 
 import com.rviewer.skeletons.domain.model.Image;
 import com.rviewer.skeletons.infrastructure.service.DatasetService;
-import com.rviewer.skeletons.infrastructure.mapper.DatasetImageMapper;
+import com.rviewer.skeletons.infrastructure.mapper.DatasetImageDaoMapper;
 import com.rviewer.skeletons.infrastructure.rest.dataset.DatasetControllerApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,10 @@ public class DatasetServiceImpl implements DatasetService {
     private DatasetControllerApi datasetControllerApi;
 
     @Autowired
-    private DatasetImageMapper datasetImageMapper;
+    private DatasetImageDaoMapper datasetImageDaoMapper;
 
     @Override
     public Flux<Image> retrieveData() {
-        return datasetControllerApi.getData().map(datasetImageMapper::map);
+        return datasetControllerApi.getData().map(datasetImageDaoMapper::map);
     }
 }

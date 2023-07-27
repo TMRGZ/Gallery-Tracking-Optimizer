@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface ImageService {
 
-    Flux<Image> getImages(String algorithm);
+    Flux<Image> getSortedImages(String algorithm);
 
     Mono<Image> getImage(UUID id);
 

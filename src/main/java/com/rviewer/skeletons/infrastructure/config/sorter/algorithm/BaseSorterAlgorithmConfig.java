@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AbstractSorterAlgorithmConfig {
+public class BaseSorterAlgorithmConfig {
 
     @NotBlank
     private String name;

@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EventSorterConfig extends AbstractSorterAlgorithmConfig {
+public class EventSorterConfig extends BaseSorterAlgorithmConfig {
 
     @NotNull
     private EventSorterCriteria criteria;

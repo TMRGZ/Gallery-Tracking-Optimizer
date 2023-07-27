@@ -5,7 +5,7 @@ import com.rviewer.skeletons.infrastructure.rest.dataset.model.DatasetImageDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface DatasetImageMapper {
+public interface DatasetImageDaoMapper {
 
     Image map(DatasetImageDto datasetImageDto);
 
