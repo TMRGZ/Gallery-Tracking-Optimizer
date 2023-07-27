@@ -31,15 +31,18 @@ public class EventSorterService extends AbstractSorterService {
     }
 
     private Image calculateWeight(Image image) {
-        double view = Optional.ofNullable(image.getEvents().getViews())
-                .map(BigDecimal::doubleValue).orElse(0.0);
-        double click = Optional.ofNullable(image.getEvents().getClicks())
-                .map(BigDecimal::doubleValue).orElse(0.0);
+        double view = getDefaultCounter(image.getEvents().getViews());
+        double click = getDefaultCounter(image.getEvents().getClicks());
 
         double weight = (view * viewRating) + (click * clickRating);
 
         return image.toBuilder()
                 .weight(BigDecimal.valueOf(weight))
                 .build();
+    }
+
+    private double getDefaultCounter(BigDecimal nullableNumber) {
+        return Optional.ofNullable(nullableNumber)
+                .map(BigDecimal::doubleValue).orElse(0.0);
     }
 }
