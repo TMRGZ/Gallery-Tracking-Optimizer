@@ -3,6 +3,7 @@ package com.rviewer.skeletons.application.service.impl;
 import com.rviewer.skeletons.application.service.DebugApplicationService;
 import com.rviewer.skeletons.domain.service.debug.DebugService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ public class DebugApplicationServiceImpl implements DebugApplicationService {
     @Transactional
     public Mono<ResponseEntity<Void>> importData() {
         return debugService.importData()
-                .then(Mono.just(ResponseEntity.created(null).build()));
+                .then(Mono.just(ResponseEntity.status(HttpStatus.CREATED).build()));
     }
 
     @Override
