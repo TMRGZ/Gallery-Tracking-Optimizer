@@ -12,13 +12,13 @@ import java.util.Optional;
 
 public class EventSorterService extends AbstractSorterService {
 
-    private final double viewRating;
+    private final Double viewRating;
 
-    private final double clickRating;
+    private final Double clickRating;
 
     public EventSorterService(ImageRepository imageRepository,
                               ImageSorterAlgorithm imageSorterAlgorithm,
-                              double viewRating, double clickRating) {
+                              Double viewRating, Double clickRating) {
         super(imageRepository, imageSorterAlgorithm);
         this.viewRating = viewRating;
         this.clickRating = clickRating;

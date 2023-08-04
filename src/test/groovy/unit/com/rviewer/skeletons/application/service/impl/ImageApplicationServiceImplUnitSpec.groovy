@@ -4,6 +4,7 @@ import com.rviewer.skeletons.application.mapper.EventDtoMapper
 import com.rviewer.skeletons.application.mapper.ImageDtoMapper
 import com.rviewer.skeletons.application.model.ImageInfoDto
 import com.rviewer.skeletons.application.model.TrackEventBodyDto
+import com.rviewer.skeletons.application.service.ImageApplicationService
 import com.rviewer.skeletons.application.service.impl.ImageApplicationServiceImpl
 import com.rviewer.skeletons.domain.model.Event
 import com.rviewer.skeletons.domain.model.Image
@@ -21,7 +22,7 @@ import java.time.OffsetDateTime
 class ImageApplicationServiceImplUnitSpec extends Specification {
 
     @Subject
-    private ImageApplicationServiceImpl imageApplicationService
+    private ImageApplicationService imageApplicationService
 
     private ImageService imageService = Mock(ImageService)
 
@@ -48,23 +49,20 @@ class ImageApplicationServiceImplUnitSpec extends Specification {
         def imagesFlux = Flux.just(image)
         and: "A mocked mapped object"
         def imageDto = new ImageInfoDto()
-        imageDtoMapper.map(image) >> imageDto
 
         when: "The parameters are received"
         def response = imageApplicationService.getImageList()
+        and: "The reactive stream is executed"
+        StepVerifier.create(response).expectNextMatches {
+            it.statusCode == HttpStatus.OK && it.body
+                    && StepVerifier.create(it.body)
+                    .expectNext(imageDto)
+                    .verifyComplete()
+        }.verifyComplete()
 
-        then: "The reactive process is returned"
-        StepVerifier.create(response)
-                .expectNextMatches {
-                    it.statusCode == HttpStatus.OK && it.body
-                            && StepVerifier.create(it.body)
-                            .expectNext(imageDto)
-                            .verifyComplete()
-                }
-                .expectComplete()
-                .verify()
-        and: "There are interactions with the dependencies"
+        then: "There are interactions with the dependencies"
         1 * imageService.getSortedImages(algorithm) >> imagesFlux
+        1 * imageDtoMapper.map(image) >> imageDto
     }
 
     def "Receiving a post image event request results in an empty response"() {
@@ -77,20 +75,18 @@ class ImageApplicationServiceImplUnitSpec extends Specification {
         def trackEventBodyDtoMono = Mono.just(trackEventBodyDto)
         and: "A mocked mapped object"
         def event = Event.builder().build()
-        eventDtoMapper.map(trackEventBodyDto) >> event
         and: "A saved object"
         def savedEvent = event
         def savedEventMono = Mono.just(savedEvent)
-        eventService.save(_ as Event) >> savedEventMono
 
         when: "The parameters are received"
         def response = imageApplicationService.postImageEvents(imageId, trackEventBodyDtoMono)
-
-        then: "The reactive process is returned"
-        StepVerifier.create(response)
-                .expectNextMatches {
-                    it.statusCode == HttpStatus.NO_CONTENT && !it.body
-                }
+        and: "The reactive stream is executed"
+        StepVerifier.create(response).expectNextMatches { it.statusCode == HttpStatus.NO_CONTENT && !it.body }
                 .verifyComplete()
+
+        then: "There are interactions with the dependencies"
+        1 * eventDtoMapper.map(trackEventBodyDto) >> event
+        1 * eventService.save(_ as Event) >> savedEventMono
     }
 }

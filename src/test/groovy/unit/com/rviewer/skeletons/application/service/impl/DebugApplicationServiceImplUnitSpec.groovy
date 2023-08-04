@@ -1,5 +1,6 @@
 package unit.com.rviewer.skeletons.application.service.impl
 
+import com.rviewer.skeletons.application.service.DebugApplicationService
 import com.rviewer.skeletons.application.service.impl.DebugApplicationServiceImpl
 import com.rviewer.skeletons.domain.model.Image
 import com.rviewer.skeletons.domain.service.debug.DebugService
@@ -13,7 +14,7 @@ import spock.lang.Subject
 class DebugApplicationServiceImplUnitSpec extends Specification {
 
     @Subject
-    private DebugApplicationServiceImpl debugApplicationService
+    private DebugApplicationService debugApplicationService
 
     private DebugService debugService = Mock(DebugService)
 
@@ -30,9 +31,11 @@ class DebugApplicationServiceImplUnitSpec extends Specification {
 
         when: "The request is executed"
         def response = debugApplicationService.importData()
+        and: "The reactive stream is executed"
+        def reactiveResponse = StepVerifier.create(response)
 
         then: "A response is received"
-        StepVerifier.create(response)
+        reactiveResponse
                 .expectNextMatches { it.statusCode == HttpStatus.CREATED && !it.body }
                 .verifyComplete()
         and: "There are interactions with dependencies"
@@ -42,9 +45,11 @@ class DebugApplicationServiceImplUnitSpec extends Specification {
     def "When a delete data request is received it gets an empty response"() {
         when: "The request is executed"
         def response = debugApplicationService.deleteData()
+        and: "The reactive stream is executed"
+        def reactiveResponse = StepVerifier.create(response)
 
         then: "A response is received"
-        StepVerifier.create(response)
+        reactiveResponse
                 .expectNextMatches { it.statusCode == HttpStatus.NO_CONTENT && !it.body }
                 .verifyComplete()
         and: "There are interactions with dependencies"

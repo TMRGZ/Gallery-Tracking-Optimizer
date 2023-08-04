@@ -27,8 +27,7 @@ public class ImageRepositoryImpl implements ImageRepository {
 
     @Override
     public Flux<Image> saveAll(Flux<Image> imageFlux) {
-        return imageMongoRepository.saveAll(imageFlux.map(imageDaoMapper::map))
-                .map(imageDaoMapper::map);
+        return imageFlux.flatMap(this::save);
     }
 
     @Override
