@@ -29,8 +29,8 @@ public class EventServiceImpl implements EventService {
         Mono<Long> countedEvents = eventRepository.countByImageIdAndEventType(imageId, event.getEventType());
 
         return foundImage.switchIfEmpty(Mono.defer(() ->
-                        Mono.error(new ImageNotFoundException("Image with id = %s not found".formatted(imageId)))))
-                .then(Mono.defer(() -> savedEvent))
+                        Mono.error(new ImageNotFoundException(imageId))))
+                .then(savedEvent)
                 .flatMap(e -> Mono.zip(Mono.just(e), foundImage, countedEvents))
                 .flatMap(tuple -> {
                     Event tupleEvent = tuple.getT1();

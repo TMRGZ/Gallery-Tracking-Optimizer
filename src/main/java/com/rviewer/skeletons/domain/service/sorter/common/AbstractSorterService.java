@@ -1,10 +1,12 @@
 package com.rviewer.skeletons.domain.service.sorter.common;
 
 import com.rviewer.skeletons.domain.algorithm.ImageSorterAlgorithm;
+import com.rviewer.skeletons.domain.exception.NoImagesFoundException;
 import com.rviewer.skeletons.domain.model.Image;
 import com.rviewer.skeletons.domain.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 
 import java.math.BigDecimal;
@@ -18,6 +20,7 @@ public abstract class AbstractSorterService {
 
     public final Flux<Image> getSortedImages() {
         return prepareImages(imageRepository.findAll())
+                .switchIfEmpty(Mono.error(NoImagesFoundException::new))
                 .sort(imageSorterAlgorithm.thenComparing(imageSorterAlgorithm.fallbackCompare()))
                 .index().map(this::getIndexedImage);
     }
