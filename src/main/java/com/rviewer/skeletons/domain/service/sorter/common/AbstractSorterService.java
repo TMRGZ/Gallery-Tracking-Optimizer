@@ -10,13 +10,13 @@ import reactor.util.function.Tuple2;
 import java.math.BigDecimal;
 
 @RequiredArgsConstructor
-public class AbstractSorterService {
+public abstract class AbstractSorterService {
 
     private final ImageRepository imageRepository;
 
     private final ImageSorterAlgorithm imageSorterAlgorithm;
 
-    public Flux<Image> getSortedImages() {
+    public final Flux<Image> getSortedImages() {
         return prepareImages(imageRepository.findAll())
                 .sort(imageSorterAlgorithm.thenComparing(imageSorterAlgorithm.fallbackCompare()))
                 .index().map(this::getIndexedImage);

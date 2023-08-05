@@ -23,21 +23,22 @@ public class EventServiceImpl implements EventService {
     @Override
     public Mono<Event> save(Event event) {
         UUID imageId = event.getImageId();
+        Mono<Image> foundImage = imageService.getImage(imageId);
+        Mono<Event> savedEvent = eventRepository.save(event);
+        Mono<Long> countedEvents = eventRepository.countByImageIdAndEventType(imageId, event.getEventType());
 
-        Mono<Event> savedMono = eventRepository.save(event);
-        return imageService.getImage(imageId).switchIfEmpty(
-                        Mono.error(new ImageNotFoundException("Image with id = %s not found".formatted(imageId))))
-                .zipWith(savedMono)
-                .zipWith(eventRepository.countByImageIdAndEventType(imageId, event.getEventType()))
+        return foundImage.switchIfEmpty(Mono.defer(() ->
+                        Mono.error(new ImageNotFoundException("Image with id = %s not found".formatted(imageId)))))
+                .then(Mono.defer(() -> savedEvent))
+                .flatMap(e -> Mono.zip(Mono.just(e), foundImage, countedEvents))
                 .flatMap(tuple -> {
-                    Event tupleEvent = tuple.getT1().getT2();
-                    Image tupleImage = tuple.getT1().getT1();
-                    long tupleCount = tuple.getT2();
+                    Event tupleEvent = tuple.getT1();
+                    Image tupleImage = tuple.getT2();
+                    long tupleCount = tuple.getT3();
 
                     return persistImageEvents(tupleImage, tupleEvent, tupleCount);
                 })
-                .flatMap(imageService::save)
-                .then(savedMono);
+                .then(savedEvent);
     }
 
     private Mono<Image> persistImageEvents(Image image, Event event, long count) {
@@ -49,8 +50,9 @@ public class EventServiceImpl implements EventService {
         }
 
         ImageInfoEvents updatedEvents = eventsBuilder.build();
+        Image imageToSave = image.toBuilder().events(updatedEvents).build();
 
-        return Mono.just(image.toBuilder().events(updatedEvents).build());
+        return imageService.save(imageToSave);
     }
 
     @Override
