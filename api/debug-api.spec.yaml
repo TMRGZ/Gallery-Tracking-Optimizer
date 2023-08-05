@@ -10,10 +10,6 @@ paths:
       responses:
         '201':
           description: Data has been imported
-        '404':
-          description: No data to import
-        '409':
-          description: Data has already been imported
     delete:
       operationId: delete-data
       responses:
