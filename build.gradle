@@ -50,6 +50,7 @@ dependencies {
     testImplementation 'io.projectreactor:reactor-test:3.5.6'
     testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.7.0'
     testImplementation 'org.signal:embedded-redis:0.8.3'
+    testImplementation 'org.springframework.cloud:spring-cloud-contract-wiremock:4.0.4'
     // DB
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     // Cache
