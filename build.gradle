@@ -48,7 +48,7 @@ dependencies {
     testImplementation 'io.github.joke:spock-mockable:2.3.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test:3.5.6'
-    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.7.0'
     testImplementation 'org.signal:embedded-redis:0.8.3'
     // DB
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
@@ -118,11 +118,10 @@ tasks.register('buildDatasetClient', GenerateTask) {
 
 tasks.compileJava.dependsOn(buildServer, buildDebugServer, buildDatasetClient)
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
 
 test {
+    useJUnitPlatform()
+
     testLogging {
         events "PASSED", "SKIPPED", "FAILED"
     }
@@ -149,7 +148,7 @@ jacocoTestReport {
 ************************ Task to obtain a clear test report ************************
 ************************************************************************************
 */
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     testLogging {
         events TestLogEvent.FAILED,
                 TestLogEvent.PASSED
