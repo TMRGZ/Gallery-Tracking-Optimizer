@@ -40,9 +40,4 @@ public class EventSorterService extends AbstractSorterService {
                 .weight(BigDecimal.valueOf(weight))
                 .build();
     }
-
-    private double getDefaultCounter(BigDecimal nullableNumber) {
-        return Optional.ofNullable(nullableNumber)
-                .map(BigDecimal::doubleValue).orElse(0.0);
-    }
 }

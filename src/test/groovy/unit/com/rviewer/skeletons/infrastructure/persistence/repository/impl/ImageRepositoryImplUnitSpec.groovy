@@ -29,7 +29,7 @@ class ImageRepositoryImplUnitSpec extends Specification {
 
     def "Providing nothing, should find all images in DB and the map them"() {
         given: "A returned list of reactive images"
-        def imageDao = new ImageDao()
+        def imageDao = ImageDao.builder().build()
         def imageDaoList = [imageDao]
         and: "A returned mapped domain model"
         def image = Image.builder().build()
@@ -52,7 +52,7 @@ class ImageRepositoryImplUnitSpec extends Specification {
         def imageList = [image]
         def imageFlux = Flux.fromIterable(imageList)
         and: "A mocked mapped dao"
-        def imageDao = new ImageDao()
+        def imageDao = ImageDao.builder().build()
 
         when: "The saveAll is executed"
         def storedImages = imageRepository.saveAll(imageFlux)
@@ -82,7 +82,7 @@ class ImageRepositoryImplUnitSpec extends Specification {
         given: "An image id"
         def imageId = UUID.randomUUID()
         and: "An image dao from DB"
-        def imageDao = new ImageDao()
+        def imageDao = ImageDao.builder().build()
         imageDao.setId(imageId)
         and: "A mapped domain model image"
         def image = Image.builder().id(imageId).build()
@@ -103,7 +103,7 @@ class ImageRepositoryImplUnitSpec extends Specification {
         given: "An image to store"
         def image = Image.builder().build()
         and: "A image mapped to dao"
-        def imageDao = new ImageDao()
+        def imageDao = ImageDao.builder().build()
 
         when: "The save is executed"
         def savedImage = imageRepository.save(image)

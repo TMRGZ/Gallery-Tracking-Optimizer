@@ -11,13 +11,10 @@ import java.math.BigDecimal;
 @Builder
 public class ImageInfoEventsDao {
 
-    static final ImageInfoEventsDao emptyEvents = ImageInfoEventsDao.builder()
-            .views(BigDecimal.ZERO)
-            .clicks(BigDecimal.ZERO)
-            .build();
+    @Builder.Default
+    private BigDecimal views = BigDecimal.ZERO;
 
-    private BigDecimal views;
-
-    private BigDecimal clicks;
+    @Builder.Default
+    private BigDecimal clicks = BigDecimal.ZERO;
 
 }

@@ -22,6 +22,7 @@ public class ImageDao {
 
     private Instant createdAt;
 
-    private ImageInfoEventsDao events = ImageInfoEventsDao.emptyEvents;
+    @Builder.Default
+    private ImageInfoEventsDao events = ImageInfoEventsDao.builder().build();
 
 }
