@@ -6,6 +6,7 @@ import com.rviewer.skeletons.infrastructure.mapper.EventDaoMapper
 import com.rviewer.skeletons.infrastructure.persistence.dao.EventDao
 import com.rviewer.skeletons.infrastructure.persistence.repository.impl.EventRepositoryImpl
 import com.rviewer.skeletons.infrastructure.persistence.repository.mongo.EventMongoRepository
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
 import spock.lang.Specification
@@ -69,8 +70,9 @@ class EventRepositoryImplUnitSpec extends Specification {
     def "Providing an image id, should find it's events in DB and the map them"() {
         given: "An image id"
         def imageId = UUID.randomUUID()
-        and: "A found mocked event dao"
+        and: "A found mocked event dao list"
         def eventDao = new EventDao()
+        def eventDaoList = [eventDao]
         and: "A mocked mapped event"
         def event = Event.builder().build()
 
@@ -82,7 +84,7 @@ class EventRepositoryImplUnitSpec extends Specification {
                 .verifyComplete()
 
         then: "There are interactions with the dependencies"
-        1 * eventMongoRepository.findByImageId(imageId) >> Mono.just(eventDao)
+        1 * eventMongoRepository.findByImageId(imageId) >> Flux.fromIterable(eventDaoList)
         1 * eventDaoMapper.map(eventDao) >> event
     }
 

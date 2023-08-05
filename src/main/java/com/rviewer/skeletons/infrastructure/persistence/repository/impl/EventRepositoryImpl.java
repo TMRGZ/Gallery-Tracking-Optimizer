@@ -7,6 +7,7 @@ import com.rviewer.skeletons.infrastructure.mapper.EventDaoMapper;
 import com.rviewer.skeletons.infrastructure.persistence.repository.mongo.EventMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public Mono<Event> findByImageId(UUID imageId) {
+    public Flux<Event> findByImageId(UUID imageId) {
         return eventMongoRepository.findByImageId(imageId)
                 .map(eventDaoMapper::map);
     }

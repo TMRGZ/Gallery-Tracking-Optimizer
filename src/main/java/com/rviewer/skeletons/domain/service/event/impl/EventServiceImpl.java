@@ -8,6 +8,7 @@ import com.rviewer.skeletons.domain.repository.EventRepository;
 import com.rviewer.skeletons.domain.service.event.EventService;
 import com.rviewer.skeletons.domain.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
@@ -56,7 +57,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Mono<Event> getAllEventsFromAnImage(UUID imageId) {
+    public Flux<Event> getAllEventsFromAnImage(UUID imageId) {
         return eventRepository.findByImageId(imageId);
     }
 }

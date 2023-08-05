@@ -9,6 +9,7 @@ import com.rviewer.skeletons.domain.repository.EventRepository
 import com.rviewer.skeletons.domain.service.event.EventService
 import com.rviewer.skeletons.domain.service.event.impl.EventServiceImpl
 import com.rviewer.skeletons.domain.service.image.ImageService
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
 import spock.lang.Specification
@@ -82,8 +83,9 @@ class EventServiceImplUnitSpec extends Specification {
     def "Providing and image id it should retrieve all related events"() {
         given: "An image id"
         def imageId = UUID.randomUUID()
-        and: "A related event"
+        and: "A related event list"
         def event = Event.builder().imageId(imageId).build()
+        def eventList = [event]
 
         when: "The get is executed"
         def gotEvent = eventService.getAllEventsFromAnImage(imageId)
@@ -93,7 +95,7 @@ class EventServiceImplUnitSpec extends Specification {
                 .verifyComplete()
 
         then: "There should be interactions with the dependencies"
-        1 * eventRepository.findByImageId(imageId) >> Mono.just(event)
+        1 * eventRepository.findByImageId(imageId) >> Flux.fromIterable(eventList)
     }
 
 }
