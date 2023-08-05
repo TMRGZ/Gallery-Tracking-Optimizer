@@ -14,7 +14,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 import reactor.core.publisher.Mono
 import spock.lang.Specification
 
-import java.time.Instant
+import java.time.OffsetDateTime
 
 @SpringBootTest(classes = RviewerSkeletonApplication, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -33,15 +33,32 @@ class AbstractControllerIntegrationSpec extends Specification {
     @Autowired
     EventMongoRepository eventMongoRepository
 
+    def imagesToInsert = [] as List<ImageDao>
 
     void setup() {
         insertImages()
     }
 
     private void insertImages() {
-        def imagesToInsert = []
-
-        imagesToInsert << ImageDao.builder().id(UUID.randomUUID()).name("IMAGE_1").createdAt(Instant.now()).url("").build()
+        imagesToInsert << ImageDao.builder()
+                .id(UUID.randomUUID())
+                .name("IMAGE_1")
+                .createdAt(OffsetDateTime.now().plusYears(1).toInstant())
+                .url("")
+                .build()
+        imagesToInsert << ImageDao.builder()
+                .id(UUID.randomUUID())
+                .name("IMAGE_2")
+                .createdAt(OffsetDateTime.now().minusYears(1).toInstant())
+                .url("")
+                .build()
+        imagesToInsert << ImageDao.builder()
+                .id(UUID.randomUUID())
+                .name("IMAGE_3")
+                .createdAt(OffsetDateTime.now().minusYears(2).toInstant())
+                .url("")
+                .events(ImageInfoEventsDao.builder().views(BigDecimal.ONE).build())
+                .build()
 
         imageMongoRepository.saveAll(imagesToInsert).collectList().block()
     }
