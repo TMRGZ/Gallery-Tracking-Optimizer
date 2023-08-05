@@ -43,7 +43,7 @@ class ImageRepositoryImplUnitSpec extends Specification {
 
         then: "There are interactions with the dependencies"
         1 * imageMongoRepository.findAll() >> Flux.fromIterable(imageDaoList)
-        1 * imageDaoMapper.map(imageDao) >> image
+        1 * imageDaoMapper.map({ ImageDao imageDao1 -> imageDao1.events }) >> image
     }
 
     def "Providing a reactive list of images, should store them after map them and the return their mapped domain version"() {
@@ -96,7 +96,7 @@ class ImageRepositoryImplUnitSpec extends Specification {
 
         then: "There are interactions with the dependencies"
         1 * imageMongoRepository.findById(imageId) >> Mono.just(imageDao)
-        1 * imageDaoMapper.map(imageDao) >> image
+        1 * imageDaoMapper.map({ ImageDao imageDao1 -> imageDao1.events }) >> image
     }
 
     def "Providing an image, should store it in DB after mapping it, and then map the repository response"() {

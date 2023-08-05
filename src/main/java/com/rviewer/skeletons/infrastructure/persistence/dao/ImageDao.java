@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 @Document("image")
 public class ImageDao {
 
@@ -22,7 +22,6 @@ public class ImageDao {
 
     private Instant createdAt;
 
-    @Builder.Default
-    private ImageInfoEventsDao events = ImageInfoEventsDao.builder().build();
+    private ImageInfoEventsDao events;
 
 }
