@@ -4,6 +4,10 @@ de:
       embedded:
         version: 5.0.0
 
+endpoints:
+  dataset:
+    url: http://localhost:${wiremock.server.port}
+
 sorter:
   config:
     default-algorithm: "EventSorter"

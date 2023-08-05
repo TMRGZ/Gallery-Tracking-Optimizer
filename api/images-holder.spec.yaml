@@ -3,8 +3,6 @@ openapi: 3.0.3
 info:
   version: 1.0.0
   title: Challenges Dataset API
-servers:
-  - url: 'https://static.rviewer.io/'
 paths:
   /challenges/datasets/gallery-tracking-optimizer/data.json:
     get:

@@ -9,6 +9,10 @@ spring:
       password: rv_password
       database: mongo_rv_database
 
+endpoints:
+  dataset:
+    url: https://static.rviewer.io
+
 sorter:
   config:
     default-algorithm: "EventSorter"
