@@ -1,8 +1,9 @@
 package com.rviewer.skeletons.infrastructure.controller;
 
-import com.rviewer.skeletons.application.model.ImageInfoDto;
-import com.rviewer.skeletons.application.model.TrackEventBodyDto;
+import generated.com.rviewer.skeletons.application.model.ImageInfoDto;
 import com.rviewer.skeletons.application.service.ImageApplicationService;
+import generated.com.rviewer.skeletons.application.model.TrackEventBodyDto;
+import generated.com.rviewer.skeletons.infrastructure.controller.ImagesApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,6 +1,6 @@
 package com.rviewer.skeletons.application.mapper;
 
-import com.rviewer.skeletons.application.model.ImageInfoEventsDto;
+import generated.com.rviewer.skeletons.application.model.ImageInfoEventsDto;
 import com.rviewer.skeletons.domain.model.ImageInfoEvents;
 import org.mapstruct.Mapper;
 

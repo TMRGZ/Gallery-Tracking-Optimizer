@@ -2,8 +2,8 @@ package unit.com.rviewer.skeletons.infrastructure.service.impl
 
 import com.rviewer.skeletons.domain.model.Image
 import com.rviewer.skeletons.infrastructure.mapper.DatasetImageDaoMapper
-import com.rviewer.skeletons.infrastructure.rest.dataset.DatasetControllerApi
-import com.rviewer.skeletons.infrastructure.rest.dataset.model.DatasetImageDto
+import generated.com.rviewer.skeletons.infrastructure.rest.dataset.DatasetControllerApi
+import generated.com.rviewer.skeletons.infrastructure.rest.dataset.model.DatasetImageDto
 import com.rviewer.skeletons.infrastructure.service.DatasetService
 import com.rviewer.skeletons.infrastructure.service.impl.DatasetServiceImpl
 import reactor.core.publisher.Flux

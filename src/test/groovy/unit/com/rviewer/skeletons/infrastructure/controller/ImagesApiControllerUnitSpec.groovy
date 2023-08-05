@@ -1,6 +1,6 @@
 package unit.com.rviewer.skeletons.infrastructure.controller
 
-import com.rviewer.skeletons.application.model.TrackEventBodyDto
+import generated.com.rviewer.skeletons.application.model.TrackEventBodyDto
 import com.rviewer.skeletons.application.service.ImageApplicationService
 import com.rviewer.skeletons.infrastructure.controller.ImagesApiController
 import org.springframework.web.server.ServerWebExchange

@@ -68,8 +68,8 @@ sourceSets {
 tasks.register('buildServer', GenerateTask) {
     generatorName = "spring"
     inputSpec = "$rootDir/api/api.spec.yaml"
-    apiPackage = "com.rviewer.skeletons.infrastructure.controller"
-    modelPackage = "com.rviewer.skeletons.application.model"
+    apiPackage = "generated.com.rviewer.skeletons.infrastructure.controller"
+    modelPackage = "generated.com.rviewer.skeletons.application.model"
     outputDir = "$buildDir/generated/sources".toString()
     modelNameSuffix = "Dto"
     configOptions = [
@@ -77,16 +77,15 @@ tasks.register('buildServer', GenerateTask) {
             skipDefaultInterface          : "true",
             performBeanValidation         : "true",
             useSpringBoot3                : "true",
-            reactive                      : "true",
-            additionalModelTypeAnnotations: "@lombok.Generated"
+            reactive                      : "true"
     ]
 }
 
 tasks.register('buildDebugServer', GenerateTask) {
     generatorName = "spring"
     inputSpec = "$rootDir/api/debug-api.spec.yaml"
-    apiPackage = "com.rviewer.skeletons.infrastructure.controller"
-    modelPackage = "com.rviewer.skeletons.application.model"
+    apiPackage = "generated.com.rviewer.skeletons.infrastructure.controller"
+    modelPackage = "generated.com.rviewer.skeletons.application.model"
     outputDir = "$buildDir/generated/sources".toString()
     modelNameSuffix = "Dto"
     configOptions = [
@@ -94,8 +93,7 @@ tasks.register('buildDebugServer', GenerateTask) {
             skipDefaultInterface          : "true",
             performBeanValidation         : "true",
             useSpringBoot3                : "true",
-            reactive                      : "true",
-            additionalModelTypeAnnotations: "@lombok.Generated"
+            reactive                      : "true"
     ]
 }
 
@@ -103,17 +101,16 @@ tasks.register('buildDatasetClient', GenerateTask) {
     generatorName = "java"
     library = "webclient"
     inputSpec = "$rootDir/api/images-holder.spec.yaml"
-    apiPackage = "com.rviewer.skeletons.infrastructure.rest.dataset"
-    invokerPackage = "com.rviewer.skeletons.infrastructure.rest.dataset.invoker"
-    modelPackage = "com.rviewer.skeletons.infrastructure.rest.dataset.model"
+    apiPackage = "generated.com.rviewer.skeletons.infrastructure.rest.dataset"
+    invokerPackage = "generated.com.rviewer.skeletons.infrastructure.rest.dataset.invoker"
+    modelPackage = "generated.com.rviewer.skeletons.infrastructure.rest.dataset.model"
     outputDir = "$buildDir/generated/sources".toString()
     modelNameSuffix = "Dto"
     modelNamePrefix = "Dataset"
     configOptions = [
             generateApiDocumentation      : "false",
             generateApiTests              : "false",
-            useJakartaEe                  : "true",
-            additionalModelTypeAnnotations: "@lombok.Generated"
+            useJakartaEe                  : "true"
     ]
 }
 
@@ -141,6 +138,12 @@ jacocoTestReport {
         xml.required = true
         html.required = true
         csv.required = false
+    }
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**/generated/**'])
+        })
     }
 }
 

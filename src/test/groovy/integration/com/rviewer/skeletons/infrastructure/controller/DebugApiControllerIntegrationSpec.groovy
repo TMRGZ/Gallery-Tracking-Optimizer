@@ -1,7 +1,7 @@
 package integration.com.rviewer.skeletons.infrastructure.controller
 
 import com.github.tomakehurst.wiremock.client.WireMock
-import com.rviewer.skeletons.infrastructure.rest.dataset.model.DatasetImageDto
+import generated.com.rviewer.skeletons.infrastructure.rest.dataset.model.DatasetImageDto
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 

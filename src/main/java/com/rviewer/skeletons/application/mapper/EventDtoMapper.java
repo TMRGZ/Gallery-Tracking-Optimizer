@@ -1,6 +1,6 @@
 package com.rviewer.skeletons.application.mapper;
 
-import com.rviewer.skeletons.application.model.TrackEventBodyDto;
+import generated.com.rviewer.skeletons.application.model.TrackEventBodyDto;
 import com.rviewer.skeletons.domain.model.Event;
 import org.mapstruct.Mapper;
 

@@ -1,6 +1,6 @@
 package com.rviewer.skeletons.infrastructure.config;
 
-import com.rviewer.skeletons.infrastructure.rest.dataset.DatasetControllerApi;
+import generated.com.rviewer.skeletons.infrastructure.rest.dataset.DatasetControllerApi;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;

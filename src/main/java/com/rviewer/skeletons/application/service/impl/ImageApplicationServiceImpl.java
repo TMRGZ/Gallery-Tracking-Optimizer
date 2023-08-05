@@ -2,8 +2,8 @@ package com.rviewer.skeletons.application.service.impl;
 
 import com.rviewer.skeletons.application.mapper.EventDtoMapper;
 import com.rviewer.skeletons.application.mapper.ImageDtoMapper;
-import com.rviewer.skeletons.application.model.ImageInfoDto;
-import com.rviewer.skeletons.application.model.TrackEventBodyDto;
+import generated.com.rviewer.skeletons.application.model.ImageInfoDto;
+import generated.com.rviewer.skeletons.application.model.TrackEventBodyDto;
 import com.rviewer.skeletons.application.service.ImageApplicationService;
 import com.rviewer.skeletons.domain.service.event.EventService;
 import com.rviewer.skeletons.domain.service.image.ImageService;

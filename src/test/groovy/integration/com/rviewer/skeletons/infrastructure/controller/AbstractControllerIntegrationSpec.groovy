@@ -3,6 +3,7 @@ package integration.com.rviewer.skeletons.infrastructure.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.rviewer.skeletons.RviewerSkeletonApplication
 import com.rviewer.skeletons.infrastructure.persistence.dao.ImageDao
+import com.rviewer.skeletons.infrastructure.persistence.dao.ImageInfoEventsDao
 import com.rviewer.skeletons.infrastructure.persistence.repository.mongo.EventMongoRepository
 import com.rviewer.skeletons.infrastructure.persistence.repository.mongo.ImageMongoRepository
 import org.springframework.beans.factory.annotation.Autowired
