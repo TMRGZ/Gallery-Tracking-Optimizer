@@ -7,21 +7,20 @@ import com.rviewer.skeletons.domain.service.sorter.common.AbstractSorterService;
 import reactor.core.publisher.Flux;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 
 public class EventSorterService extends AbstractSorterService {
 
-    private final Double viewRating;
+    private final BigDecimal viewRating;
 
-    private final Double clickRating;
+    private final BigDecimal clickRating;
 
     public EventSorterService(ImageRepository imageRepository,
                               ImageSorterAlgorithm imageSorterAlgorithm,
                               Double viewRating, Double clickRating) {
         super(imageRepository, imageSorterAlgorithm);
-        this.viewRating = viewRating;
-        this.clickRating = clickRating;
+        this.viewRating = BigDecimal.valueOf(viewRating);
+        this.clickRating = BigDecimal.valueOf(clickRating);
     }
 
     @Override
@@ -31,13 +30,13 @@ public class EventSorterService extends AbstractSorterService {
     }
 
     private Image calculateWeight(Image image) {
-        double view = getDefaultCounter(image.getEvents().getViews());
-        double click = getDefaultCounter(image.getEvents().getClicks());
+        BigDecimal view = image.getEvents().getViews();
+        BigDecimal click = image.getEvents().getClicks();
 
-        double weight = (view * viewRating) + (click * clickRating);
+        BigDecimal weight = view.multiply(viewRating).add(click.multiply(clickRating));
 
         return image.toBuilder()
-                .weight(BigDecimal.valueOf(weight))
+                .weight(weight)
                 .build();
     }
 }
