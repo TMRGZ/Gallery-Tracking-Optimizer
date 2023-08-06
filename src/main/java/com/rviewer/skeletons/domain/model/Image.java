@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder(toBuilder = true)
-public class Image {
+public class Image implements Serializable {
 
     private UUID id;
 

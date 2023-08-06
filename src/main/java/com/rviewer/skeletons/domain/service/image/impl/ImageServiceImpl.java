@@ -1,5 +1,6 @@
 package com.rviewer.skeletons.domain.service.image.impl;
 
+import com.rviewer.skeletons.domain.annotation.ReactiveCacheable;
 import com.rviewer.skeletons.domain.factory.SorterFactory;
 import com.rviewer.skeletons.domain.model.Image;
 import com.rviewer.skeletons.domain.repository.ImageRepository;
@@ -18,6 +19,10 @@ public class ImageServiceImpl implements ImageService {
     private final SorterFactory sorterFactory;
 
     @Override
+    @ReactiveCacheable(
+            value = "getSortedImages",
+            key = "PRUEBA"
+    )
     public Flux<Image> getSortedImages(String algorithm) {
         return sorterFactory.getSorter(algorithm)
                 .getSortedImages();
