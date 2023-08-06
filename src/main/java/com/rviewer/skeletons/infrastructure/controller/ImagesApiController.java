@@ -18,8 +18,8 @@ public class ImagesApiController implements ImagesApi {
     private ImageApplicationService imageApplicationService;
 
     @Override
-    public Mono<ResponseEntity<Flux<ImageInfoDto>>> getImageList(ServerWebExchange exchange) {
-        return imageApplicationService.getImageList();
+    public Mono<ResponseEntity<Flux<ImageInfoDto>>> getImageList(String algorithm, ServerWebExchange exchange) {
+        return imageApplicationService.getImageList(algorithm);
     }
 
     @Override

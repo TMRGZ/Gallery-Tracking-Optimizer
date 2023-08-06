@@ -31,8 +31,8 @@ public class ImageApplicationServiceImpl implements ImageApplicationService {
     private EventDtoMapper eventDtoMapper;
 
     @Override
-    public Mono<ResponseEntity<Flux<ImageInfoDto>>> getImageList() {
-        Flux<ImageInfoDto> imageInfoDtoFlux = imageService.getSortedImages("").map(imageDtoMapper::map);
+    public Mono<ResponseEntity<Flux<ImageInfoDto>>> getImageList(String algorithm) {
+        Flux<ImageInfoDto> imageInfoDtoFlux = imageService.getSortedImages(algorithm).map(imageDtoMapper::map);
         return Mono.just(ResponseEntity.ok(imageInfoDtoFlux));
     }
 

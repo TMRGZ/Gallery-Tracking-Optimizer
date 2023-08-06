@@ -62,7 +62,13 @@ paths:
         The resulted images have to be optimized to obtain the best Conversion Rate of each one through the gallery. To do so, we have to calculate an image weight for each one, based on the events received.
         
           Wi = [total_views * 0.3] + [total_clicks * 0.7]
-
+      parameters:
+        - name: algorithm
+          description: The algorithm to sort the images.
+          required: false
+          in: query
+          schema:
+            type: string
       responses:
         '200':
           description: Case they have been registered through the realtime enpdoint

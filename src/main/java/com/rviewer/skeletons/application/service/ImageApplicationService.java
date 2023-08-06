@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 
 public interface ImageApplicationService {
 
-    Mono<ResponseEntity<Flux<ImageInfoDto>>> getImageList();
+    Mono<ResponseEntity<Flux<ImageInfoDto>>> getImageList(String algorithm);
 
     Mono<ResponseEntity<Void>> postImageEvents(String imageId, Mono<TrackEventBodyDto> trackEventBodyDto);
 

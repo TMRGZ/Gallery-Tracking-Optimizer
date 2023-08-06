@@ -51,7 +51,7 @@ class ImageApplicationServiceImplUnitSpec extends Specification {
         def imageDto = new ImageInfoDto()
 
         when: "The parameters are received"
-        def response = imageApplicationService.getImageList()
+        def response = imageApplicationService.getImageList(algorithm)
         and: "The reactive stream is executed"
         StepVerifier.create(response).expectNextMatches {
             it.statusCode == HttpStatus.OK && it.body

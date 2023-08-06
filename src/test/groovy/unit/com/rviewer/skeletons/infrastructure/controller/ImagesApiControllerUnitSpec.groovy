@@ -26,12 +26,14 @@ class ImagesApiControllerUnitSpec extends Specification {
     def "When receiving a get image list request results in a call to the image application service"() {
         given: "A mocked server web exchange object"
         def exchange = Mock(ServerWebExchange)
+        and: "An algorithm to sort"
+        def algorithm = ""
 
         when: "Calling the method"
-        imagesApiController.getImageList(exchange)
+        imagesApiController.getImageList(algorithm, exchange)
 
         then: "There are interaction with the dependencies"
-        1 * imageApplicationService.getImageList()
+        1 * imageApplicationService.getImageList(algorithm)
     }
 
     def "When receiving a post image event request results in a call to the image application service"() {
