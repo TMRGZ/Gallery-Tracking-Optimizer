@@ -2,11 +2,11 @@ package com.rviewer.skeletons.application.service.impl;
 
 import com.rviewer.skeletons.application.mapper.EventDtoMapper;
 import com.rviewer.skeletons.application.mapper.ImageDtoMapper;
-import generated.com.rviewer.skeletons.application.model.ImageInfoDto;
-import generated.com.rviewer.skeletons.application.model.TrackEventBodyDto;
 import com.rviewer.skeletons.application.service.ImageApplicationService;
 import com.rviewer.skeletons.domain.service.event.EventService;
 import com.rviewer.skeletons.domain.service.image.ImageService;
+import generated.com.rviewer.skeletons.application.model.ImageInfoDto;
+import generated.com.rviewer.skeletons.application.model.TrackEventBodyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.rviewer.skeletons.application.mapper;
 
-import generated.com.rviewer.skeletons.application.model.ImageInfoEventsDto;
 import com.rviewer.skeletons.domain.model.ImageInfoEvents;
+import generated.com.rviewer.skeletons.application.model.ImageInfoEventsDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
