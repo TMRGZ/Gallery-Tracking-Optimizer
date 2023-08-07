@@ -10,8 +10,6 @@ public interface ImageRepository {
 
     Flux<Image> findAll();
 
-    Flux<Image> saveAll(Flux<Image> imageFlux);
-
     Mono<Void> deleteAll();
 
     Mono<Image> findById(UUID id);

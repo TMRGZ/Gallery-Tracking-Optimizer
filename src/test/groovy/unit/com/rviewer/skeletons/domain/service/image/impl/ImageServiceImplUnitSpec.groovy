@@ -95,7 +95,7 @@ class ImageServiceImplUnitSpec extends Specification {
                 .verifyComplete()
 
         then: "There are interactions with the dependencies"
-        1 * imageRepository.saveAll(imageFlux) >> imageFlux
+        1 * imageRepository.save(image) >> Mono.just(image)
     }
 
     def "Providing nothing, all images should be deleted from the DB"() {

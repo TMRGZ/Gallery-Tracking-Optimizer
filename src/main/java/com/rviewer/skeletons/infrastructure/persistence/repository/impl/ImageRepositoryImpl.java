@@ -31,11 +31,6 @@ public class ImageRepositoryImpl implements ImageRepository {
     }
 
     @Override
-    public Flux<Image> saveAll(Flux<Image> imageFlux) {
-        return imageFlux.flatMap(this::save);
-    }
-
-    @Override
     public Mono<Void> deleteAll() {
         return imageMongoRepository.deleteAll();
     }

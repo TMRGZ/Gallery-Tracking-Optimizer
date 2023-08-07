@@ -55,9 +55,4 @@ public class EventServiceImpl implements EventService {
 
         return imageService.save(imageToSave);
     }
-
-    @Override
-    public Flux<Event> getAllEventsFromAnImage(UUID imageId) {
-        return eventRepository.findByImageId(imageId);
-    }
 }

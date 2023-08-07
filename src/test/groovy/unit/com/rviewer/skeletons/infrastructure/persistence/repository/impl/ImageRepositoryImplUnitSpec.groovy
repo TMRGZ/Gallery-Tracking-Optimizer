@@ -46,27 +46,6 @@ class ImageRepositoryImplUnitSpec extends Specification {
         1 * imageDaoMapper.map({ ImageDao imageDao1 -> imageDao1.events }) >> image
     }
 
-    def "Providing a reactive list of images, should store them after map them and the return their mapped domain version"() {
-        given: "A reactive list of mocked images"
-        def image = Image.builder().build()
-        def imageList = [image]
-        def imageFlux = Flux.fromIterable(imageList)
-        and: "A mocked mapped dao"
-        def imageDao = ImageDao.builder().build()
-
-        when: "The saveAll is executed"
-        def storedImages = imageRepository.saveAll(imageFlux)
-        and: "The reactive stream is executed"
-        StepVerifier.create(storedImages)
-                .expectNextSequence(imageList)
-                .verifyComplete()
-
-        then: "There are interactions with the dependencies"
-        1 * imageDaoMapper.map(image) >> imageDao
-        1 * imageMongoRepository.save(imageDao) >> Mono.just(imageDao)
-        1 * imageDaoMapper.map(imageDao) >> image
-    }
-
     def "Providing nothing, should delete all images in DB"() {
         when: "The delete all is executed"
         def deleteAll = imageRepository.deleteAll()

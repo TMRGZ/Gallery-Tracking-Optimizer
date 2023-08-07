@@ -35,7 +35,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Flux<Image> saveImages(Flux<Image> imageFlux) {
-        return imageRepository.saveAll(imageFlux);
+        return imageFlux.flatMap(this::save);
     }
 
     @Override
