@@ -5,9 +5,11 @@ import com.rviewer.skeletons.domain.service.debug.DebugService;
 import com.rviewer.skeletons.domain.service.image.ImageService;
 import com.rviewer.skeletons.infrastructure.service.DatasetService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @RequiredArgsConstructor
 public class DebugServiceImpl implements DebugService {
 
@@ -17,6 +19,7 @@ public class DebugServiceImpl implements DebugService {
 
     @Override
     public Flux<Image> importData() {
+        log.info("Importing data from dataset");
         Flux<Image> imageFlux = datasetService.retrieveData();
         return imageService.saveImages(imageFlux);
     }

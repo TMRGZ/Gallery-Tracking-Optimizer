@@ -4,11 +4,13 @@ import com.rviewer.skeletons.domain.algorithm.ImageSorterAlgorithm;
 import com.rviewer.skeletons.domain.model.Image;
 import com.rviewer.skeletons.domain.repository.ImageRepository;
 import com.rviewer.skeletons.domain.service.sorter.common.AbstractSorterService;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 
 import java.math.BigDecimal;
 
 
+@Slf4j
 public class EventSorterService extends AbstractSorterService {
 
     private final BigDecimal viewRating;
@@ -25,6 +27,7 @@ public class EventSorterService extends AbstractSorterService {
 
     @Override
     public Flux<Image> prepareImages(Flux<Image> imagesToSort) {
+        log.info("Preprocessing images for event sorter");
         return super.prepareImages(imagesToSort)
                 .map(this::calculateWeight);
     }

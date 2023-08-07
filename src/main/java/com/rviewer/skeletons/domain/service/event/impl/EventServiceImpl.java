@@ -8,12 +8,13 @@ import com.rviewer.skeletons.domain.repository.EventRepository;
 import com.rviewer.skeletons.domain.service.event.EventService;
 import com.rviewer.skeletons.domain.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Flux;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@Slf4j
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
 
@@ -23,6 +24,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Mono<Event> save(Event event) {
+        log.info("Saving event {}", event);
         UUID imageId = event.getImageId();
         Mono<Image> foundImage = imageService.getImage(imageId);
         Mono<Event> savedEvent = eventRepository.save(event);
@@ -43,6 +45,8 @@ public class EventServiceImpl implements EventService {
     }
 
     private Mono<Image> persistImageEvents(Image image, Event event, long count) {
+        log.info("Adding event {} to image {}, total count {}", event, image, count);
+
         ImageInfoEvents.ImageInfoEventsBuilder eventsBuilder = image.getEvents().toBuilder();
 
         switch (event.getEventType()) {
