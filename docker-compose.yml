@@ -1,35 +1,47 @@
 version: '3.9'
 
 services:
-    java-skeleton-api:
-        container_name: java-skeleton-api
-        image: gradle:latest # this is due to some Mac M1 issues with Docker :_
-        depends_on:
-            -   postgres-skeleton-db
-        volumes:
-            -   "${PWD}:/home/gradle/project"
-            -   "rv-gradle-cache:/home/gradle/.gradle"
-        working_dir: "/home/gradle/project"
-        ports:
-            -   "8080:8080"
-        networks:
-            internal-net:
-
-    postgres-skeleton-db:
-        container_name: postgres-skeleton-db
-        image: postgres:13.4-alpine
-        restart: on-failure
-        volumes:
-            - rv-volume:/var/lib/postgresql/data
-        env_file:
-            - postgres.dev.env
-        networks:
-            internal-net:
+  java-skeleton-api:
+    container_name: java-skeleton-api
+    image: gradle:latest # this is due to some Mac M1 issues with Docker :_
+    depends_on:
+      - mongodb-skeleton-db
+    volumes:
+      - "${PWD}:/home/gradle/project"
+      - "rv-gradle-cache:/home/gradle/.gradle"
+    working_dir: "/home/gradle/project"
+    ports:
+      - "8080:8080"
+    networks:
+      internal-net:
+  mongodb-skeleton-db:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rv_user
+      MONGO_INITDB_ROOT_PASSWORD: rv_password
+      MONGO_INITDB_DATABASE: mongo_rv_database
+    restart: on-failure
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - rv-volume:/var/lib/mongodb/data
+    networks:
+      internal-net:
+  redis-skeleton-db:
+    image: redis:latest
+    restart: on-failure
+    ports:
+      - "6379:6379"
+    volumes:
+      - rv-volume:/data
+    networks:
+      internal-net:
 
 volumes:
-    rv-volume:
-    rv-gradle-cache:
+  rv-volume:
+  rv-gradle-cache:
 
 networks:
-    internal-net:
-        name: rv-skeleton-net
+  internal-net:
+    name: rv-skeleton-net

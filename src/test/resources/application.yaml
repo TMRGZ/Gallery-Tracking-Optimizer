@@ -1,0 +1,20 @@
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 5.0.0
+
+endpoints:
+  dataset:
+    url: http://localhost:${wiremock.server.port}
+
+sorter:
+  config:
+    default-algorithm: "EventSorter"
+  sorter-list:
+    event-sorter:
+      name: "EventSorter"
+      direction: desc
+      criteria:
+        view: 0.3
+        click: 0.7

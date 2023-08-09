@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: Gallery Optimizer API
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: rv_user
+      password: rv_password
+      database: mongo_rv_database
+
+endpoints:
+  dataset:
+    url: https://static.rviewer.io
+
+sorter:
+  config:
+    default-algorithm: "EventSorter"
+  sorter-list:
+    event-sorter:
+      name: "EventSorter"
+      direction: desc
+      criteria:
+        view: 0.3
+        click: 0.7
